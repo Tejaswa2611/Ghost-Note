@@ -30,10 +30,7 @@ export async function POST(request: Request) {
                 return Response.json({
                     success: false,
                     message: "Email already exists"
-                },
-                    {
-                        status: 400
-                    }
+                }, { status: 400 }
                 )
             } else {
                 const hashedPassword = await bcrypt.hash(password, 10);
@@ -64,24 +61,18 @@ export async function POST(request: Request) {
         // send otp to users
         const emailResponse = await sendVerificationEmail(email, username, otp);
         console.log("emailResponse->", emailResponse);
-    
+
         if (!emailResponse.success) {
             return Response.json({
                 success: false,
                 message: "Error sending verification email"
-            },
-                {
-                    status: 500
-                }
+            }, { status: 500 }
             )
         }
         return Response.json({
             success: true,
             message: "User registered successfully"
-        },
-            {
-                status: 201
-            }
+        }, { status: 201 }
         )
 
     } catch (error) {
@@ -89,10 +80,7 @@ export async function POST(request: Request) {
         return Response.json({
             success: false,
             message: "Error registering user"
-        },
-            {
-                status: 500
-            }
+        }, { status: 500 }
         )
     }
 }
