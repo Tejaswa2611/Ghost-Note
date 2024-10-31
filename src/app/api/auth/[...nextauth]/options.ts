@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import connectDB from "@/lib/connectDB";
 import UserModel from "@/models/User";
-
+// console.log("here")
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
@@ -16,10 +16,12 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials: any): Promise<any> {
                 await connectDB();
                 try {
+                    // console.log("credentials", credentials)
+                    // console.log("email /username", credentials.email)
                     const user = await UserModel.findOne({
                         $or: [
-                            { email: credentials.identifier },
-                            { username: credentials.identifier }
+                            { email: credentials.email },
+                            { username: credentials.email }
                         ]
                     })
                     if (!user) {

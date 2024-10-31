@@ -21,8 +21,8 @@ export async function GET(request: Request) {
         const queryParam = {
             username: searchParams.get('username'),
         }
-        const result = usernameQuerySchema.safeParse(queryParam);
-        console.log("result from unique username check->", result);
+        const result = usernameQuerySchema.safeParse(queryParam); // this will give 2 fields data and boolean of success/failure
+        // console.log("result from unique username check 90909090->", result);
         if (!result.success) {
             const usernameErrors = result.error.format().username?._errors || [];
             return Response.json({
