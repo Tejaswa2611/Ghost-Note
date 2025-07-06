@@ -63,15 +63,30 @@ export async function POST(request: Request) {
         console.log("emailResponse->", emailResponse);
 
         if (!emailResponse.success) {
+            // In development, still allow registration even if email fails
+            if (process.env.NODE_ENV === 'development') {
+                console.log("Email failed in development, but allowing registration to continue");
+                console.log("=== DEVELOPMENT: Use this verification code ===");
+                console.log("Username:", username);
+                console.log("Email:", email);
+                console.log("Verification Code:", otp);
+                console.log("==============================================");
+                
+                return Response.json({
+                    success: true,
+                    message: "User registered successfully. Check console for verification code (development mode)."
+                }, { status: 201 })
+            }
+            
             return Response.json({
                 success: false,
-                message: "Error sending verification email"
+                message: emailResponse.message || "Error sending verification email"
             }, { status: 500 }
             )
         }
         return Response.json({
             success: true,
-            message: "User registered successfully"
+            message: "User registered successfully. Please check your email for verification code."
         }, { status: 201 }
         )
 
