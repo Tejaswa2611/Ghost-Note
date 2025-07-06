@@ -1,6 +1,7 @@
 # 👻 GhostNote - Anonymous Messaging Platform
 
 A modern, secure anonymous messaging platform built with Next.js 14, featuring AI-powered message suggestions, real-time stats, and beautiful glassmorphism UI design.
+Hosted link - https://main.d2hkbxalmybjjw.amplifyapp.com/
 
 ![GhostNote Banner](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
