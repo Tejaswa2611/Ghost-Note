@@ -60,7 +60,9 @@ const Dashboard = () => {
     const fetchMessages = useCallback(async (showToast = false) => {
         setIsLoading(true)
         try {
+            console.log("📨 Fetching messages...");
             const response = await axios.get('/api/get-messages')
+            console.log("✅ Messages response:", response.data);
             setMessages(response.data.messages || [])
             if (showToast) {
                 toast({
@@ -68,10 +70,22 @@ const Dashboard = () => {
                     description: 'Messages refreshed successfully'
                 })
             }
-        } catch (error) {
+        } catch (error: any) {
+            console.error("❌ Error fetching messages:", error);
+            console.error("Error details:", error.response?.data);
+            
+            let errorMessage = 'Failed to fetch messages';
+            if (error.response?.status === 401) {
+                errorMessage = 'Please sign in again to view messages';
+            } else if (error.response?.status === 404) {
+                errorMessage = 'User not found';
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response.data.message;
+            }
+            
             toast({
                 title: 'Error',
-                description: 'Failed to fetch messages'
+                description: errorMessage
             })
         } finally {
             setIsLoading(false)

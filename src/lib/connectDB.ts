@@ -13,12 +13,19 @@ async function connectDB(): Promise<void> {
     }
 
     try {
-        const db = await mongoose.connect(process.env.MONGO_URL || "", {});
+        const mongoUrl = process.env.MONGODB_URI || process.env.MONGO_URL || "";
+        
+        if (!mongoUrl) {
+            throw new Error("MONGODB_URI or MONGO_URL environment variable is not set");
+        }
+        
+        console.log("🔗 Connecting to MongoDB...");
+        const db = await mongoose.connect(mongoUrl, {});
         connection.isConnected = true;
         console.log("db.connection.readyState->", db.connection.readyState);
-        console.log("Connected to DB");
+        console.log("✅ Connected to DB successfully");
     } catch (err) {
-        console.error("Database connection failed->", err);
+        console.error("❌ Database connection failed->", err);
         process.exit(1); // gracefully exit the process if connection fails
     }
 
