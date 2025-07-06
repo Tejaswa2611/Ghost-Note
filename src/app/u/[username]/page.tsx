@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 import { MessageCircle, Send, Sparkles, MessagesSquare, ArrowLeft, Heart } from 'lucide-react'
+import { LoadingDots, LoadingSkeleton } from '@/components/ui/loading'
 import axios from 'axios'
 
 interface SuggestedMessage {
@@ -293,7 +294,7 @@ const UserProfilePage = () => {
                             >
                                 {isLoading ? (
                                     <>
-                                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                                        <LoadingDots color="white" />
                                         Sending...
                                     </>
                                 ) : (
@@ -328,7 +329,7 @@ const UserProfilePage = () => {
                                 className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
                             >
                                 {isLoadingSuggestions ? (
-                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-400"></div>
+                                    <LoadingDots size="sm" color="rgb(168 85 247)" />
                                 ) : (
                                     <>
                                         <Sparkles className="h-4 w-4 mr-1" />
@@ -364,12 +365,7 @@ const UserProfilePage = () => {
                         {isLoadingSuggestions ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {[...Array(6)].map((_, i) => (
-                                    <div key={i} className="p-4 bg-slate-700/40 rounded-xl border border-slate-600/40">
-                                        <div className="animate-pulse">
-                                            <div className="h-4 bg-slate-600 rounded w-3/4 mb-2"></div>
-                                            <div className="h-4 bg-slate-600 rounded w-1/2"></div>
-                                        </div>
-                                    </div>
+                                    <LoadingSkeleton key={i} variant="suggestion" />
                                 ))}
                             </div>
                         ) : (

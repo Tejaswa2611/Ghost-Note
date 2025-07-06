@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Link as LinkIcon, Share2, MessageCircle, Shield, Lock, MessagesSquare } from 'lucide-react';
+import { LoadingDots } from '@/components/ui/loading';
 
 interface Stats {
   totalUsers: number;
@@ -203,7 +204,7 @@ const Index = () => {
             <div className="text-center">
               <div className="text-3xl font-bold text-primary">
                 {statsLoading ? (
-                  <div className="animate-pulse bg-slate-700 h-8 w-16 rounded"></div>
+                  <LoadingDots color="hsl(var(--primary))" />
                 ) : (
                   <>
                     <AnimatedCounter target={stats.totalUsers} delay={3000} />+
@@ -215,7 +216,7 @@ const Index = () => {
             <div className="text-center">
               <div className="text-3xl font-bold text-primary-glow">
                 {statsLoading ? (
-                  <div className="animate-pulse bg-slate-700 h-8 w-16 rounded"></div>
+                  <LoadingDots color="hsl(var(--primary-glow))" />
                 ) : (
                   <>
                     <AnimatedCounter target={stats.totalMessages} delay={3500} />+

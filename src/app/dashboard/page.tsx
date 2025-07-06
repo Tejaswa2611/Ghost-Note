@@ -7,12 +7,13 @@ import { Switch } from '@/components/ui/switch'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Copy, Link2, MessageCircle, Eye, Settings, Trash2, RefreshCw } from 'lucide-react'
+import { LoadingSkeleton } from '@/components/ui/loading'
 import axios from 'axios'
 
 interface Message {
     _id: string
     content: string
-    createdAt: string
+    createdOn: string
 }
 
 const Dashboard = () => {
@@ -290,12 +291,7 @@ const Dashboard = () => {
                                 {isLoading ? (
                                     <div className="space-y-4">
                                         {[...Array(3)].map((_, i) => (
-                                            <div key={i} className="animate-pulse">
-                                                <div className="bg-slate-700/50 rounded-lg p-4 space-y-3">
-                                                    <div className="h-4 bg-slate-600/50 rounded w-3/4"></div>
-                                                    <div className="h-3 bg-slate-600/50 rounded w-1/2"></div>
-                                                </div>
-                                            </div>
+                                            <LoadingSkeleton key={i} variant="message" />
                                         ))}
                                     </div>
                                 ) : messages.length === 0 ? (
@@ -314,6 +310,15 @@ const Dashboard = () => {
                                                 <div className="flex justify-between items-start gap-4">
                                                     <div className="flex-1">
                                                         <p className="text-gray-200 mb-2 leading-relaxed">{message.content}</p>
+                                                        <p className="text-xs text-gray-500">
+                                                            {new Date(message.createdOn).toLocaleDateString('en-US', {
+                                                                year: 'numeric',
+                                                                month: 'short',
+                                                                day: 'numeric',
+                                                                hour: '2-digit',
+                                                                minute: '2-digit'
+                                                            })}
+                                                        </p>
                                                     </div>
                                                     <Button
                                                         variant="ghost"
