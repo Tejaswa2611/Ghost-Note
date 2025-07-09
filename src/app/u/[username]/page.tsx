@@ -232,7 +232,7 @@ const UserProfilePage = () => {
                 <div className="absolute top-1/2 left-1/4 w-28 h-28 bg-purple-500/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
                 {/* Floating particles */}
-                {isClient && [...Array(12)].map((_, i) => (
+                {isClient && [...Array(window.innerWidth < 768 ? 6 : 12)].map((_, i) => (
                     <div
                         key={i}
                         className="absolute w-1 h-1 bg-purple-400/20 rounded-full animate-pulse"
@@ -246,51 +246,51 @@ const UserProfilePage = () => {
                 ))}
             </div>
 
-            <div className="relative z-10 container mx-auto px-4 py-12 max-w-3xl">
+            <div className="relative z-10 container mx-auto px-4 py-8 sm:py-12 max-w-4xl">
                 {/* Header */}
-                <div className="text-center mb-12">
-                    <div className="flex items-center justify-center gap-3 mb-6">
-                        <MessagesSquare className="h-10 w-10 text-purple-400" />
-                        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <div className="text-center mb-8 sm:mb-12">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4 sm:mb-6">
+                        <MessagesSquare className="h-8 w-8 sm:h-10 sm:w-10 text-purple-400" />
+                        <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
                             Send Anonymous Message
                         </h1>
                     </div>
-                    <p className="text-gray-200 text-xl mb-3">
+                    <p className="text-gray-200 text-lg sm:text-xl mb-2 sm:mb-3">
                         Send an anonymous message to <span className="text-purple-400 font-semibold">@{username}</span>
                     </p>
-                    <p className="text-gray-400 text-base">
+                    <p className="text-gray-400 text-sm sm:text-base">
                         Your identity will remain completely anonymous
                     </p>
                 </div>
 
                 {/* Message Input Section */}
-                <Card className="bg-slate-800/60 backdrop-blur-xl border-slate-700/60 hover:border-purple-500/40 transition-all duration-300 mb-8">
-                    <CardHeader className="pb-4">
-                        <CardTitle className="flex items-center gap-2 text-white text-xl">
-                            <MessageCircle className="h-6 w-6 text-purple-400" />
+                <Card className="bg-slate-800/60 backdrop-blur-xl border-slate-700/60 hover:border-purple-500/40 transition-all duration-300 mb-6 sm:mb-8">
+                    <CardHeader className="pb-3 sm:pb-4">
+                        <CardTitle className="flex items-center gap-2 text-white text-lg sm:text-xl">
+                            <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 text-purple-400" />
                             Your Message
                         </CardTitle>
-                        <CardDescription className="text-gray-400 text-base">
+                        <CardDescription className="text-gray-400 text-sm sm:text-base">
                             Write your anonymous message below. Be kind and respectful.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
+                    <CardContent className="space-y-4 sm:space-y-6">
                         <Textarea
                             placeholder="Type your anonymous message here..."
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            className="min-h-40 bg-slate-700/60 border-slate-600/60 text-white placeholder:text-gray-400 focus:border-purple-500/60 focus:ring-purple-500/20 resize-none text-base leading-relaxed p-4"
+                            className="min-h-32 sm:min-h-40 bg-slate-700/60 border-slate-600/60 text-white placeholder:text-gray-400 focus:border-purple-500/60 focus:ring-purple-500/20 resize-none text-sm sm:text-base leading-relaxed p-3 sm:p-4"
                             maxLength={500}
                         />
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm text-gray-400">
+                        <div className="flex items-center justify-between flex-wrap gap-3">
+                            <span className="text-xs sm:text-sm text-gray-400">
                                 {message.length}/500 characters
                             </span>
                             <Button
                                 onClick={sendMessage}
                                 disabled={isLoading || !message.trim()}
                                 size="lg"
-                                className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0 disabled:opacity-50 px-8 py-3"
+                                className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0 disabled:opacity-50 px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base"
                             >
                                 {isLoading ? (
                                     <>
@@ -299,7 +299,7 @@ const UserProfilePage = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <Send className="h-5 w-5 mr-2" />
+                                        <Send className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                                         Send Message
                                     </>
                                 )}
@@ -309,15 +309,15 @@ const UserProfilePage = () => {
                 </Card>
 
                 {/* Suggested Messages Section */}
-                <Card className="bg-slate-800/60 backdrop-blur-xl border-slate-700/60 mb-8">
-                    <CardHeader className="pb-4">
-                        <div className="flex items-center justify-between">
+                <Card className="bg-slate-800/60 backdrop-blur-xl border-slate-700/60 mb-6 sm:mb-8">
+                    <CardHeader className="pb-3 sm:pb-4">
+                        <div className="flex items-center justify-between flex-wrap gap-3">
                             <div>
-                                <CardTitle className="flex items-center gap-2 text-white text-xl">
-                                    <Sparkles className="h-6 w-6 text-purple-400" />
+                                <CardTitle className="flex items-center gap-2 text-white text-lg sm:text-xl">
+                                    <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-purple-400" />
                                     AI-Powered Message Ideas
                                 </CardTitle>
-                                <CardDescription className="text-gray-400 text-base">
+                                <CardDescription className="text-gray-400 text-sm sm:text-base">
                                     Not sure what to say? Get some AI-generated suggestions to inspire you!
                                 </CardDescription>
                             </div>
@@ -326,13 +326,13 @@ const UserProfilePage = () => {
                                 disabled={isLoadingSuggestions}
                                 variant="outline"
                                 size="sm"
-                                className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
+                                className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 text-xs sm:text-sm"
                             >
                                 {isLoadingSuggestions ? (
                                     <LoadingDots size="sm" color="rgb(168 85 247)" />
                                 ) : (
                                     <>
-                                        <Sparkles className="h-4 w-4 mr-1" />
+                                        <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                                         Refresh
                                     </>
                                 )}
@@ -340,7 +340,7 @@ const UserProfilePage = () => {
                         </div>
 
                         {/* Category Selection */}
-                        <div className="mt-4">
+                        <div className="mt-3 sm:mt-4">
                             <div className="flex flex-wrap gap-2">
                                 {categories.map((category) => (
                                     <button
@@ -350,7 +350,7 @@ const UserProfilePage = () => {
                                             generateSuggestions(category.id)
                                         }}
                                         disabled={isLoadingSuggestions}
-                                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${selectedCategory === category.id
+                                        className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 ${selectedCategory === category.id
                                                 ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/25'
                                                 : 'bg-slate-700/50 text-gray-300 hover:bg-slate-700 hover:text-white'
                                             } disabled:opacity-50`}
@@ -363,20 +363,20 @@ const UserProfilePage = () => {
                     </CardHeader>
                     <CardContent>
                         {isLoadingSuggestions ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 {[...Array(6)].map((_, i) => (
                                     <LoadingSkeleton key={i} variant="suggestion" />
                                 ))}
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 {suggestedMessages.map((suggestion) => (
                                     <button
                                         key={suggestion.id}
                                         onClick={() => selectSuggestedMessage(suggestion.text)}
-                                        className="text-left p-4 bg-slate-700/40 hover:bg-slate-700/60 rounded-xl border border-slate-600/40 hover:border-purple-500/40 transition-all duration-300 group"
+                                        className="text-left p-3 sm:p-4 bg-slate-700/40 hover:bg-slate-700/60 rounded-xl border border-slate-600/40 hover:border-purple-500/40 transition-all duration-300 group"
                                     >
-                                        <p className="text-sm text-gray-300 group-hover:text-white transition-colors leading-relaxed">
+                                        <p className="text-xs sm:text-sm text-gray-300 group-hover:text-white transition-colors leading-relaxed">
                                             &quot;{suggestion.text}&quot;
                                         </p>
                                     </button>
@@ -385,7 +385,7 @@ const UserProfilePage = () => {
                         )}
 
                         {/* Source indicator */}
-                        <div className="mt-4 pt-4 border-t border-slate-600/30">
+                        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-600/30">
                             <p className="text-xs text-gray-500 text-center">
                                 {suggestedMessages.length > 0 && (
                                     <>
@@ -398,14 +398,14 @@ const UserProfilePage = () => {
                 </Card>
 
                 {/* Info Section */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
                     <Card className="bg-slate-800/40 backdrop-blur-xl border-slate-700/40">
-                        <CardContent className="pt-6 pb-6">
-                            <div className="text-center space-y-3">
-                                <Heart className="h-10 w-10 text-purple-400 mx-auto" />
+                        <CardContent className="pt-4 sm:pt-6 pb-4 sm:pb-6">
+                            <div className="text-center space-y-2 sm:space-y-3">
+                                <Heart className="h-8 w-8 sm:h-10 sm:w-10 text-purple-400 mx-auto" />
                                 <div>
-                                    <h3 className="text-white font-semibold mb-2 text-lg">Stay Anonymous</h3>
-                                    <p className="text-sm text-gray-400 leading-relaxed">
+                                    <h3 className="text-white font-semibold mb-1 sm:mb-2 text-base sm:text-lg">Stay Anonymous</h3>
+                                    <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
                                         Your message will be sent completely anonymously. The recipient won&apos;t know who sent it.
                                     </p>
                                 </div>
@@ -414,12 +414,12 @@ const UserProfilePage = () => {
                     </Card>
 
                     <Card className="bg-slate-800/40 backdrop-blur-xl border-slate-700/40">
-                        <CardContent className="pt-6 pb-6">
-                            <div className="text-center space-y-3">
-                                <MessageCircle className="h-10 w-10 text-blue-400 mx-auto" />
+                        <CardContent className="pt-4 sm:pt-6 pb-4 sm:pb-6">
+                            <div className="text-center space-y-2 sm:space-y-3">
+                                <MessageCircle className="h-8 w-8 sm:h-10 sm:w-10 text-blue-400 mx-auto" />
                                 <div>
-                                    <h3 className="text-white font-semibold mb-2 text-lg">Be Respectful</h3>
-                                    <p className="text-sm text-gray-400 leading-relaxed">
+                                    <h3 className="text-white font-semibold mb-1 sm:mb-2 text-base sm:text-lg">Be Respectful</h3>
+                                    <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
                                         Please keep your messages positive and respectful. Spread kindness and good vibes.
                                     </p>
                                 </div>
@@ -434,9 +434,9 @@ const UserProfilePage = () => {
                         onClick={() => router.push('/')}
                         variant="outline"
                         size="lg"
-                        className="border-slate-600/60 text-gray-300 hover:bg-slate-700/50 hover:border-purple-500/40 px-8 py-3"
+                        className="border-slate-600/60 text-gray-300 hover:bg-slate-700/50 hover:border-purple-500/40 px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base"
                     >
-                        <ArrowLeft className="h-5 w-5 mr-2" />
+                        <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                         Back to Home
                     </Button>
                 </div>

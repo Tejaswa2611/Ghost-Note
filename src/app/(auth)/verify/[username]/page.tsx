@@ -104,7 +104,7 @@ const VerifyAccount = () => {
                 <div className="absolute top-1/2 left-1/4 w-28 h-28 bg-purple-500/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
                 {/* Floating particles */}
-                {isClient && [...Array(12)].map((_, i) => (
+                {isClient && [...Array(window.innerWidth < 768 ? 6 : 12)].map((_, i) => (
                     <div
                         key={i}
                         className="absolute w-1 h-1 bg-purple-400/20 rounded-full animate-pulse"
@@ -119,54 +119,54 @@ const VerifyAccount = () => {
             </div>
 
             {/* Main Content */}
-            <div className="relative z-10 flex justify-center items-center min-h-screen px-6 py-12">
-                <div className="w-full max-w-lg">
+            <div className="relative z-10 flex justify-center items-center min-h-screen px-4 sm:px-6 py-8 sm:py-12">
+                <div className="w-full max-w-sm sm:max-w-lg">
                     {/* Main Card */}
-                    <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-slate-700/50 hover:border-purple-500/30 transition-all duration-500">
+                    <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-700/50 hover:border-purple-500/30 transition-all duration-500">
                         {/* Logo Section */}
-                        <div className="text-center mb-8">
-                            <div className="flex items-center justify-center mb-6">
-                                <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-xl animate-pulse">
-                                    <Shield className="h-10 w-10 text-white" />
+                        <div className="text-center mb-6 sm:mb-8">
+                            <div className="flex items-center justify-center mb-4 sm:mb-6">
+                                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-xl animate-pulse">
+                                    <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
                                 </div>
                             </div>
-                            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+                            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-3 sm:mb-4">
                                 Verify Your Account
                             </h1>
-                            <p className="text-gray-400 text-base mb-2">
+                            <p className="text-gray-400 text-sm sm:text-base mb-2">
                                 We&apos;ve sent a verification code to your email
                             </p>
                             {params?.username && (
-                                <p className="text-purple-400 font-medium">
+                                <p className="text-purple-400 font-medium text-sm sm:text-base">
                                     @{params.username}
                                 </p>
                             )}
                         </div>
 
                         {/* Verification Info */}
-                        <div className="bg-slate-700/30 rounded-2xl p-6 mb-8 border border-slate-600/30">
-                            <div className="flex items-center gap-3 mb-3">
-                                <Mail className="h-5 w-5 text-purple-400" />
-                                <span className="text-white font-medium">Check Your Email</span>
+                        <div className="bg-slate-700/30 rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border border-slate-600/30">
+                            <div className="flex items-center gap-3 mb-2 sm:mb-3">
+                                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-purple-400" />
+                                <span className="text-white font-medium text-sm sm:text-base">Check Your Email</span>
                             </div>
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                            <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
                                 Enter the 6-digit verification code sent to your email address to complete your account setup.
                             </p>
                         </div>
 
                         {/* Form */}
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
                                 <FormField
                                     control={form.control}
                                     name="code"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel className="text-white font-medium">Verification Code</FormLabel>
+                                            <FormLabel className="text-white font-medium text-sm sm:text-base">Verification Code</FormLabel>
                                             <FormControl>
                                                 <Input 
                                                     placeholder="Enter 6-digit code"
-                                                    className="bg-slate-700/50 border-slate-600/50 text-white placeholder:text-gray-500 focus:border-purple-500/50 focus:ring-purple-500/20 text-center text-2xl font-mono tracking-widest"
+                                                    className="bg-slate-700/50 border-slate-600/50 text-white placeholder:text-gray-500 focus:border-purple-500/50 focus:ring-purple-500/20 text-center text-lg sm:text-2xl font-mono tracking-widest h-12 sm:h-14"
                                                     maxLength={6}
                                                     {...field}
                                                 />
@@ -179,16 +179,16 @@ const VerifyAccount = () => {
                                 <Button 
                                     type="submit" 
                                     disabled={isSubmitting}
-                                    className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                    className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0 py-2.5 sm:py-3 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                                 >
                                     {isSubmitting ? (
                                         <>
-                                            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                            <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
                                             Verifying...
                                         </>
                                     ) : (
                                         <>
-                                            <Shield className="mr-2 h-5 w-5" />
+                                            <Shield className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                                             Verify Account
                                         </>
                                     )}
@@ -197,9 +197,9 @@ const VerifyAccount = () => {
                         </Form>
 
                         {/* Additional Info */}
-                        <div className="mt-8 space-y-4">
+                        <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4">
                             <div className="text-center">
-                                <p className="text-gray-400 text-sm">
+                                <p className="text-gray-400 text-xs sm:text-sm">
                                     Didn&apos;t receive the code?{' '}
                                     <button 
                                         className="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -212,7 +212,7 @@ const VerifyAccount = () => {
                             </div>
                             
                             <div className="text-center">
-                                <p className="text-gray-400 text-sm">
+                                <p className="text-gray-400 text-xs sm:text-sm">
                                     Wrong email?{' '}
                                     <Link 
                                         href="/sign-up" 
@@ -226,10 +226,10 @@ const VerifyAccount = () => {
                     </div>
 
                     {/* Back to Home Link */}
-                    <div className="text-center mt-6">
+                    <div className="text-center mt-4 sm:mt-6">
                         <Link 
                             href="/" 
-                            className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
+                            className="text-gray-400 hover:text-white text-xs sm:text-sm transition-colors duration-200"
                         >
                             ← Back to Home
                         </Link>
