@@ -1,6 +1,7 @@
 # 👻 GhostNote - Anonymous Messaging Platform
 
 A modern, secure anonymous messaging platform built with Next.js 14, featuring AI-powered message suggestions, real-time stats, and beautiful glassmorphism UI design.
+Hosted link - https://main.d2hkbxalmybjjw.amplifyapp.com/
 
 ![GhostNote Banner](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -173,28 +174,3 @@ The application is designed for easy deployment on platforms like:
 - Email delivery testing with fallback mechanisms
 - Cross-browser compatibility testing
 - Mobile responsiveness verification
-
-## 🤝 Contributing
-
-This project demonstrates modern full-stack development practices and is open for contributions:
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-## 📝 License
-
-This project is created for portfolio demonstration purposes.
-
-## 📞 Contact
-
-**Developer**: [Your Name]
-- LinkedIn: [Your LinkedIn Profile]
-- Email: [Your Email]
-- Portfolio: [Your Portfolio Website]
-
----
-
-*This project showcases modern web development skills including React/Next.js, TypeScript, database integration, AI APIs, email systems, and responsive design. Built with attention to security, performance, and user experience.*
