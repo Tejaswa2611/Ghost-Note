@@ -76,7 +76,6 @@ async function connectDB(): Promise<void> {
             minPoolSize: 2,  // Maintain a minimum of 2 socket connections
             maxIdleTimeMS: 30000, // Close connections after 30 seconds of inactivity
             bufferCommands: false, // Disable mongoose buffering
-            bufferMaxEntries: 0, // Disable mongoose buffering
         };
 
         const db = await mongoose.connect(mongoUrl, options);
