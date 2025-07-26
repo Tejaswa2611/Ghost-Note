@@ -6,7 +6,7 @@ import User, { Message } from "@/models/User";
 export async function POST(request: Request) {
     try {
         // Validate request body
-        const { username, content } = await request.json();
+        const { username, content, category = 'general' } = await request.json();
         
         if (!username || !content) {
             return createErrorResponse(
@@ -36,7 +36,8 @@ export async function POST(request: Request) {
             
             const message: Message = {
                 content: content.trim(),
-                createdOn: new Date()
+                createdOn: new Date(),
+                category: category || 'general'
             } as Message;
             
             user.messages.push(message);

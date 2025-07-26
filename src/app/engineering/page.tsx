@@ -62,17 +62,17 @@ export default function Engineering() {
         <div className="animate-on-scroll">
           <h2 className="text-4xl font-semibold mb-8 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent relative pl-6">
             <span className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-r from-purple-400 to-blue-400 rounded"></span>
-            Why "FeedForward"?
+            Why &ldquo;FeedForward&rdquo;?
           </h2>
           <p className="text-gray-300 mb-4 text-lg leading-relaxed">
-            The name isn't just wordplay—it's the philosophy. <span className="text-white font-bold">FeedForward is feedback that pushes you forward</span>, not criticism that dwells on mistakes.
+            The name isn&apos;t just wordplay—it&apos;s the philosophy. <span className="text-white font-bold">FeedForward is feedback that pushes you forward</span>, not criticism that dwells on mistakes.
           </p>
           <p className="text-gray-300 mb-4 text-lg leading-relaxed">
-            Here's how I built it: <span className="text-white font-bold">the problem</span>, <span className="text-white font-bold">the architecture</span>, 
+            Here&apos;s how I built it: <span className="text-white font-bold">the problem</span>, <span className="text-white font-bold">the architecture</span>, 
             <span className="text-white font-bold">database design</span>, and <span className="text-white font-bold">technical challenges</span> that made this both frustrating and rewarding.
           </p>
           <p className="text-gray-300 mb-12 text-lg">
-            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold text-xl">Let's dive in.</span>
+            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold text-xl">Let&apos;s dive in.</span>
           </p>
         </div>
 
@@ -80,14 +80,14 @@ export default function Engineering() {
         <div className="animate-on-scroll">
           <h2 className="text-3xl font-semibold mb-6 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent relative pl-6">
             <span className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-5 bg-gradient-to-r from-purple-400 to-blue-400 rounded"></span>
-            The "aha" moment
+            The &ldquo;aha&rdquo; moment
           </h2>
           <div className="bg-slate-800/50 border border-purple-400/20 rounded-lg p-8 mb-8">
             <p className="text-gray-300 mb-4">
-              The best feedback comes from anonymous sources—course reviews, workplace surveys. People are honest when there's no consequences.
+              The best feedback comes from anonymous sources—course reviews, workplace surveys. People are honest when there&apos;s no consequences.
             </p>
             <p className="text-gray-300 mb-4">
-              Problem: <strong className="text-white font-bold">Most "anonymous" systems aren't truly anonymous</strong>. They're tied to accounts or people don't trust them.
+              Problem: <strong className="text-white font-bold">Most &ldquo;anonymous&rdquo; systems aren&apos;t truly anonymous</strong>. They&apos;re tied to accounts or people don&apos;t trust them.
             </p>
             <p className="text-gray-300">
               I built a platform where anonymity is the foundation, and feedback helps people move <span className="text-white font-bold">forward</span>.
@@ -429,7 +429,7 @@ export default function Engineering() {
             Tech choices
           </h2>
           <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-8 mb-8">
-            <p className="text-white mb-6">Built in <span className="text-white font-bold">TypeScript</span>. Life's too short for runtime errors.</p>
+            <p className="text-white mb-6">Built in <span className="text-white font-bold">TypeScript</span>. Life&apos;s too short for runtime errors.</p>
             
             <div className="space-y-4">
               <div className="pb-4 border-b border-slate-700">

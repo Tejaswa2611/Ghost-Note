@@ -5,6 +5,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface Message extends Document {
     content: string;
     createdOn: Date;
+    category?: string;
 }
 
 const MessageSchema: Schema<Message> = new Schema({
@@ -16,6 +17,11 @@ const MessageSchema: Schema<Message> = new Schema({
         type: Date,
         default: Date.now,
         required: true,
+    },
+    category: {
+        type: String,
+        enum: ['constructive', 'appreciation', 'suggestion', 'question', 'general'],
+        default: 'general'
     }
 });
 export interface User extends Document {

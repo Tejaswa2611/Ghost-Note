@@ -5,6 +5,7 @@ import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
+
 import { MessageCircle, Send, Sparkles, MessagesSquare, ArrowLeft, Heart } from 'lucide-react'
 import { LoadingDots, LoadingSkeleton } from '@/components/ui/loading'
 import axios from 'axios'
@@ -26,10 +27,20 @@ const UserProfilePage = () => {
     const [suggestedMessages, setSuggestedMessages] = useState<SuggestedMessage[]>([])
     const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState('general')
+    const [messageCategory, setMessageCategory] = useState('general')
 
     const username = params.username as string
 
-    // Message categories for different types of suggestions
+    // Message categories for the actual message
+    const messageCategories = [
+        { value: 'constructive', label: '🔧 Constructive', description: 'Helpful feedback and suggestions' },
+        { value: 'appreciation', label: '👏 Appreciation', description: 'Compliments and gratitude' },
+        { value: 'suggestion', label: '💡 Suggestion', description: 'Ideas and recommendations' },
+        { value: 'question', label: '❓ Question', description: 'Ask anything you want to know' },
+        { value: 'general', label: '💬 General', description: 'Any other message' }
+    ]
+
+    // AI suggestion categories for different types of suggestions
     const categories = [
         { id: 'general', label: '💬 General', description: 'Friendly conversation starters' },
         { id: 'creative', label: '🎨 Creative', description: 'Artistic and imaginative questions' },
@@ -133,7 +144,8 @@ const UserProfilePage = () => {
         try {
             const response = await axios.post('/api/send-messaage', {
                 username,
-                content: message.trim()
+                content: message.trim(),
+                category: messageCategory
             })
 
             toast({
@@ -141,6 +153,7 @@ const UserProfilePage = () => {
                 description: 'Your message has been sent anonymously.',
             })
             setMessage('')
+            setMessageCategory('general')
         } catch (error: any) {
             let errorMessage = 'Failed to send message. Please try again.'
 
@@ -275,6 +288,22 @@ const UserProfilePage = () => {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4 sm:space-y-6">
+                        {/* Message Category Selector */}
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-gray-300">Message Category</label>
+                            <select
+                                value={messageCategory}
+                                onChange={(e) => setMessageCategory(e.target.value)}
+                                className="w-full bg-slate-700/60 border border-slate-600/60 text-white rounded-md px-3 py-2 text-sm focus:border-purple-500/60 focus:ring-purple-500/20 focus:outline-none"
+                            >
+                                {messageCategories.map((category) => (
+                                    <option key={category.value} value={category.value} className="bg-slate-700 text-white">
+                                        {category.label} - {category.description}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        
                         <Textarea
                             placeholder="Type your anonymous message here..."
                             value={message}

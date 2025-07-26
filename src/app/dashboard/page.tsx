@@ -14,6 +14,7 @@ interface Message {
     _id: string
     content: string
     createdOn: string
+    category?: string
 }
 
 const Dashboard = () => {
@@ -24,6 +25,26 @@ const Dashboard = () => {
     const [isSwitchLoading, setIsSwitchLoading] = useState(false)
     const [acceptMessages, setAcceptMessages] = useState(false)
     const [isClient, setIsClient] = useState(false)
+    const [categoryFilter, setCategoryFilter] = useState('all')
+
+    // Message categories
+    const messageCategories = [
+        { value: 'all', label: '📋 All Messages', count: messages.length },
+        { value: 'constructive', label: '🔧 Constructive', count: messages.filter(m => m.category === 'constructive').length },
+        { value: 'appreciation', label: '👏 Appreciation', count: messages.filter(m => m.category === 'appreciation').length },
+        { value: 'suggestion', label: '💡 Suggestion', count: messages.filter(m => m.category === 'suggestion').length },
+        { value: 'question', label: '❓ Question', count: messages.filter(m => m.category === 'question').length },
+        { value: 'general', label: '💬 General', count: messages.filter(m => m.category === 'general' || !m.category).length }
+    ]
+
+    // Filter messages based on selected category
+    const filteredMessages = categoryFilter === 'all' 
+        ? messages 
+        : messages.filter(message => 
+            categoryFilter === 'general' 
+                ? (message.category === 'general' || !message.category)
+                : message.category === categoryFilter
+          )
 
     // Ensure we're on the client side
     useEffect(() => {
@@ -314,6 +335,25 @@ const Dashboard = () => {
                                         Refresh
                                     </Button>
                                 </div>
+                                
+                                {/* Category Filter */}
+                                <div className="border-t border-slate-700/50 pt-4">
+                                    <div className="flex flex-wrap gap-2">
+                                        {messageCategories.map((category) => (
+                                            <button
+                                                key={category.value}
+                                                onClick={() => setCategoryFilter(category.value)}
+                                                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                                                    categoryFilter === category.value
+                                                        ? 'bg-purple-500 text-white'
+                                                        : 'bg-slate-700/50 text-gray-300 hover:bg-slate-600/50'
+                                                }`}
+                                            >
+                                                {category.label} ({category.count})
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
                             </CardHeader>
                             <CardContent>
                                 {isLoading ? (
@@ -321,6 +361,12 @@ const Dashboard = () => {
                                         {[...Array(3)].map((_, i) => (
                                             <LoadingSkeleton key={i} variant="message" />
                                         ))}
+                                    </div>
+                                ) : filteredMessages.length === 0 && messages.length > 0 ? (
+                                    <div className="text-center py-8 sm:py-12">
+                                        <MessageCircle className="h-12 w-12 sm:h-16 sm:w-16 text-gray-600 mx-auto mb-4" />
+                                        <h3 className="text-base sm:text-lg font-medium text-gray-300 mb-2">No messages in this category</h3>
+                                        <p className="text-sm sm:text-base text-gray-500">Try selecting a different category filter</p>
                                     </div>
                                 ) : messages.length === 0 ? (
                                     <div className="text-center py-8 sm:py-12">
@@ -330,14 +376,24 @@ const Dashboard = () => {
                                     </div>
                                 ) : (
                                     <div className="space-y-3 sm:space-y-4">
-                                        {messages.map((message) => (
+                                        {filteredMessages.map((message) => (
                                             <div
                                                 key={message._id}
                                                 className="bg-slate-700/30 backdrop-blur-sm rounded-lg p-3 sm:p-4 border border-slate-600/30 hover:border-purple-500/30 transition-all duration-300 group"
                                             >
                                                 <div className="flex justify-between items-start gap-3 sm:gap-4">
                                                     <div className="flex-1 min-w-0">
-                                                        <p className="text-gray-200 mb-2 leading-relaxed text-sm sm:text-base break-words">{message.content}</p>
+                                                        <div className="flex items-start gap-2 mb-2">
+                                                            <p className="text-gray-200 leading-relaxed text-sm sm:text-base break-words flex-1">{message.content}</p>
+                                                            {message.category && (
+                                                                <Badge 
+                                                                    variant="secondary" 
+                                                                    className="text-xs bg-purple-500/20 text-purple-300 border-purple-500/30 shrink-0"
+                                                                >
+                                                                    {messageCategories.find(cat => cat.value === message.category)?.label.split(' ')[0] || '💬'}
+                                                                </Badge>
+                                                            )}
+                                                        </div>
                                                         <p className="text-xs text-gray-500">
                                                             {new Date(message.createdOn).toLocaleDateString('en-US', {
                                                                 year: 'numeric',
