@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Authentication - GhostNote',
-  description: 'Sign in or create your account to start receiving anonymous messages on GhostNote.',
+  title: 'Authentication - FeedForward',
+  description: 'Sign in or create your account to start collecting anonymous feedback with FeedForward.',
 }
 
 export default function AuthLayout({

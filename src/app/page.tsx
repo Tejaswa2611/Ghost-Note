@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Link as LinkIcon, Share2, MessageCircle, Shield, Lock, MessagesSquare } from 'lucide-react';
+import { ArrowRight, Link as LinkIcon, Share2, MessageCircle, Shield, Lock, MessagesSquare, Mail, Github } from 'lucide-react';
 import { LoadingDots } from '@/components/ui/loading';
 
 interface Stats {
@@ -181,7 +181,7 @@ const Index = () => {
             </div>
             <div className="overflow-hidden text-center sm:text-left">
               <h1 className="text-4xl sm:text-6xl md:text-8xl font-heading font-bold bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent">
-                <TypewriterText text="GhostNote" delay={500} speed={150} />
+                <TypewriterText text="FeedForward" delay={500} speed={150} />
               </h1>
             </div>
           </div>
@@ -190,7 +190,7 @@ const Index = () => {
           <div className="mb-8 sm:mb-12 overflow-hidden px-4">
             <p className="text-lg sm:text-xl md:text-3xl text-muted-foreground font-light leading-relaxed text-center">
               <TypewriterText 
-                text="Create unique links to receive anonymous messages with complete privacy" 
+                text="Honest feedback, no awkwardness - anonymous insights to push you forward." 
                 delay={2000} 
                 speed={50}
                 className="inline"
@@ -210,7 +210,7 @@ const Index = () => {
                   </>
                 )}
               </div>
-              <div className="text-sm text-muted-foreground">Active Users</div>
+              <div className="text-sm text-muted-foreground">Users</div>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-primary-glow">
@@ -222,7 +222,7 @@ const Index = () => {
                   </>
                 )}
               </div>
-              <div className="text-sm text-muted-foreground">Messages Sent</div>
+              <div className="text-sm text-muted-foreground">Feedback Collected</div>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-primary">
@@ -237,7 +237,7 @@ const Index = () => {
             <Link href="/sign-up">
               <button className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary rounded-2xl font-heading font-semibold text-primary-foreground shadow-glow hover:shadow-2xl transition-all duration-300 hover:scale-105">
                 <span className="relative z-10 flex items-center justify-center">
-                  Create Your Link
+                  Start Collecting Feedback
                   <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-primary rounded-2xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
@@ -262,9 +262,9 @@ const Index = () => {
           
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[
-              { icon: LinkIcon, title: "Create Your Link", description: "Generate a unique, anonymous link in seconds. No registration required, just click and go.", delay: 0 },
-              { icon: Share2, title: "Share It", description: "Share your link anywhere - social media, messaging apps, or embed it on your website.", delay: 200 },
-              { icon: MessageCircle, title: "Receive Messages", description: "Get anonymous messages directly. Simple, private, and completely secure.", delay: 400 }
+              { icon: LinkIcon, title: "Create Feedback Portal", description: "Sign up and create your unique feedback link. Customize your profile and start accepting anonymous feedback in under 2 minutes.", delay: 0 },
+              { icon: Share2, title: "Distribute to Team", description: "Copy your personalized link (feedforward.com/u/yourname) and share it via email, Slack, social media, or embed it on your website.", delay: 200 },
+              { icon: MessageCircle, title: "Collect Insights", description: "Monitor your dashboard to read incoming feedback. Use AI-powered suggestions to encourage more detailed responses from your audience.", delay: 400 }
             ].map((item, index) => (
               <div key={index} className="text-center group">
                 <div className={`bg-card/50 backdrop-blur-xl rounded-3xl p-6 sm:p-10 shadow-medium hover:shadow-glow transition-all duration-500 group-hover:scale-105 border border-border/30 hover:border-primary/30 transform ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
@@ -309,7 +309,7 @@ const Index = () => {
           <Link href="/sign-up">
             <button className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary rounded-2xl font-heading font-semibold text-primary-foreground shadow-glow hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <span className="relative z-10 flex items-center justify-center">
-                Get Started Now
+                Launch Your Feedback System
                 <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
               </span>
               <div className="absolute inset-0 bg-gradient-primary rounded-2xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
@@ -325,11 +325,31 @@ const Index = () => {
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-primary rounded-xl flex items-center justify-center mr-3">
               <MessagesSquare className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
             </div>
-            <span className="text-lg sm:text-xl font-heading font-semibold text-muted-foreground">GhostNote</span>
+            <span className="text-lg sm:text-xl font-heading font-semibold text-muted-foreground">FeedForward</span>
           </div>
-          <p className="text-sm sm:text-base text-muted-foreground">
-            © 2024 GhostNote. Designed for privacy, built for honesty.
+          <p className="text-sm sm:text-base text-muted-foreground mb-4">
+            Made with ❤️ by Tejaswa
           </p>
+          
+          {/* Contact Icons */}
+          <div className="flex items-center justify-center space-x-4">
+            <a 
+              href="mailto:mathurkiit@gmail.com" 
+              className="group flex items-center justify-center w-10 h-10 bg-slate-800/50 hover:bg-red-500/20 rounded-full border border-slate-600/50 hover:border-red-400/50 transition-all duration-300 hover:scale-110"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Mail className="h-5 w-5 text-slate-400 group-hover:text-red-400 transition-colors duration-300" />
+            </a>
+            <a 
+              href="https://github.com/Tejaswa2611" 
+              className="group flex items-center justify-center w-10 h-10 bg-slate-800/50 hover:bg-purple-500/20 rounded-full border border-slate-600/50 hover:border-purple-400/50 transition-all duration-300 hover:scale-110"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github className="h-5 w-5 text-slate-400 group-hover:text-purple-400 transition-colors duration-300" />
+            </a>
+          </div>
         </div>
       </footer>
     </div>

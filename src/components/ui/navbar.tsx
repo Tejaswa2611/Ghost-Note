@@ -12,7 +12,7 @@ const Navbar = () => {
 
     return (
         <nav className="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/80 border-b border-slate-700/50 shadow-lg">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+            <div className="w-full px-4 sm:px-6 py-3 sm:py-4">
                 <div className="flex items-center justify-between">
                     {/* Logo Section */}
                     <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
@@ -20,12 +20,17 @@ const Navbar = () => {
                             <MessagesSquare className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                         </div>
                         <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                            GhostNote
+                            FeedForward
                         </span>
                     </Link>
 
                     {/* User Section */}
                     <div className="flex items-center space-x-2 sm:space-x-4">
+                        {/* Engineering Link - Simple Text */}
+                        <Link href="/engineering" className="text-gray-300 hover:text-white font-extrabold tracking-wider underline underline-offset-4 decoration-2 transition-colors duration-200 text-base sm:text-lg">
+                            Engineering
+                        </Link>
+                        
                         {session ? (
                             <div className="flex items-center space-x-2 sm:space-x-4">
                                 {/* User Welcome */}
@@ -64,11 +69,6 @@ const Navbar = () => {
                                     <Button className="group relative px-3 sm:px-6 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-0 text-sm sm:text-base">
                                         <span className="relative z-10">Sign In</span>
                                         <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-                                    </Button>
-                                </Link>
-                                <Link href='/sign-up'>
-                                    <Button className="px-3 sm:px-6 py-2 border-2 border-purple-400/50 rounded-xl font-semibold text-purple-400 hover:bg-purple-400/10 hover:border-purple-400 transition-all duration-300 hover:scale-105 bg-transparent text-sm sm:text-base">
-                                        Sign Up
                                     </Button>
                                 </Link>
                             </div>

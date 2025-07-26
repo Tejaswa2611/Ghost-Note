@@ -135,10 +135,10 @@ const SignUpPage = () => {
                                 </div>
                             </div>
                             <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-2 sm:mb-3">
-                                Join GhostNote
+                                Join FeedForward
                             </h1>
                             <p className="text-gray-400 text-sm sm:text-base">
-                                Sign up to start your anonymous adventure
+                                Create your account to start collecting anonymous feedback
                             </p>
                         </div>
 

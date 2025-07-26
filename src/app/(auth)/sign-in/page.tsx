@@ -132,7 +132,7 @@ const SignInPage = () => {
             <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-2 sm:mb-3">
               Welcome Back
             </h1>
-            <p className="text-gray-300 text-base sm:text-lg">Sign in to continue your anonymous journey</p>
+            <p className="text-gray-300 text-base sm:text-lg">Sign in to access your feedback management dashboard</p>
           </div>
 
           <Form {...form}>
@@ -204,6 +204,14 @@ const SignInPage = () => {
                 Sign up here
               </Link>
             </p>
+            
+            {/* Engineering Link */}
+            <div className="flex justify-center">
+              <Link href="/engineering" className="text-gray-400 hover:text-white font-extrabold tracking-wider underline underline-offset-4 decoration-2 transition-colors duration-200 text-lg sm:text-xl">
+                Engineering Portal
+              </Link>
+            </div>
+            
             <p className="text-gray-500 text-xs sm:text-sm">
               Forgot your password?{' '}
               <Link href="#" className="text-blue-400 hover:text-blue-300 transition-colors duration-300">

@@ -1,45 +1,83 @@
-// get username and content from request body
-// search for user by username 
-// if user not found return 404, if user's isacceptingmessages is false return 403
-// if user found, create a message object with content and createdOn, push it to user's messages array
-// save user 
-
-import connectDB from "@/lib/connectDB";
+// Enhanced anonymous message sending with robust error handling
+import { withDatabaseConnection } from "@/lib/connectDB";
+import { createErrorResponse, createSuccessResponse, handleDatabaseError } from "@/lib/apiResponse";
 import User, { Message } from "@/models/User";
 
 export async function POST(request: Request) {
     try {
-        await connectDB();
-        const { username, content } = await request.json(); // todo: check if await is needed here
-        const user = await User.findOne({ username });
-        if (!user) {
-            return Response.json({
-                success: false,
-                message: "User not found"
-            }, { status: 404 })
+        // Validate request body
+        const { username, content } = await request.json();
+        
+        if (!username || !content) {
+            return createErrorResponse(
+                "Username and content are required",
+                400
+            );
         }
-        if (!user.isAcceptingMessages) {
-            return Response.json({
-                success: false,
-                message: "User is currently not accepting messages"
-            }, { status: 403 })
+        
+        if (content.length > 1000) {
+            return createErrorResponse(
+                "Message content exceeds maximum length of 1000 characters",
+                400
+            );
         }
-    
-        const message = {
-            content,
-            createdOn: new Date()
-        }
-        user.messages.push(message as Message);
-        await user.save();
-        return Response.json({
-            success: true,
-            message: "Message sent successfully"
-        })
+        
+        // Use robust database connection wrapper
+        const result = await withDatabaseConnection(async () => {
+            const user = await User.findOne({ username }).select('username isAcceptingMessages messages');
+            
+            if (!user) {
+                throw new Error("USER_NOT_FOUND");
+            }
+            
+            if (!user.isAcceptingMessages) {
+                throw new Error("USER_NOT_ACCEPTING_MESSAGES");
+            }
+            
+            const message: Message = {
+                content: content.trim(),
+                createdOn: new Date()
+            } as Message;
+            
+            user.messages.push(message);
+            await user.save();
+            
+            return {
+                messageCount: user.messages.length,
+                timestamp: message.createdOn
+            };
+        }, "Send anonymous message");
+        
+        console.log(`✅ Message sent successfully to ${username}`);
+        
+        return createSuccessResponse(
+            "Message sent successfully",
+            {
+                recipient: username,
+                messageCount: result.messageCount,
+                timestamp: result.timestamp
+            }
+        );
+        
     } catch (error) {
-        console.error("Error sending message: ", error);
-        return Response.json({
-            success: false,
-            message: "Error sending message"
-        }, { status: 500 })
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
+        
+        // Handle specific business logic errors
+        if (errorMessage === "USER_NOT_FOUND") {
+            return createErrorResponse("User not found", 404);
+        }
+        
+        if (errorMessage === "USER_NOT_ACCEPTING_MESSAGES") {
+            return createErrorResponse("User is currently not accepting messages", 403);
+        }
+        
+        // Handle database connection errors
+        if (errorMessage.includes("Database operation failed") || errorMessage.includes("Failed to connect")) {
+            return handleDatabaseError(error);
+        }
+        
+        // Generic error handling
+        console.error("❌ Error sending message:", error);
+        return createErrorResponse("Failed to send message", 500, undefined, errorMessage);
     }
 }

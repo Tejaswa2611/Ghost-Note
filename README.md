@@ -1,176 +1,81 @@
-# 👻 GhostNote - Anonymous Messaging Platform
+# 📋 FeedForward - Anonymous Feedback Management System
 
-A modern, secure anonymous messaging platform built with Next.js 14, featuring AI-powered message suggestions, real-time stats, and beautiful glassmorphism UI design.
-Hosted link - https://main.d2hkbxalmybjjw.amplifyapp.com/
+A comprehensive, enterprise-grade anonymous feedback platform built with Next.js 14, featuring AI-powered feedback suggestions, real-time analytics, and robust security. Perfect for organizations seeking to collect honest, constructive feedback while maintaining complete anonymity.
 
-![GhostNote Banner](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)
+Hosted Demo - https://main.d2hkbxalmybjjw.amplifyapp.com/
+
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
 
-## 🚀 Project Overview
+## 🎯 Project Overview
 
-GhostNote is a full-stack anonymous messaging platform that allows users to send and receive anonymous messages safely and securely. The platform features modern UI/UX design, AI-powered message suggestions, email verification, and real-time statistics.
+FeedForward is a full-stack anonymous feedback management system designed for modern organizations. It enables employees, customers, and stakeholders to provide honest, constructive feedback while maintaining complete anonymity. The platform features enterprise-grade security, AI-powered feedback suggestions, and comprehensive analytics for organizational improvement.
 
-### 🎯 Key Features
+### 🏢 Key Features
 
-- **🔐 Secure Authentication**: NextAuth.js integration with email verification
-- **📧 Email Verification**: Robust email system with Nodemailer and Gmail SMTP
-- **🤖 AI-Powered Suggestions**: OpenAI GPT integration for intelligent message suggestions
-- **📊 Real-Time Statistics**: Dynamic user and message stats from database
-- **🎨 Modern UI/UX**: Glassmorphism design with smooth animations and gradients
-- **📱 Responsive Design**: Mobile-first approach with Tailwind CSS
-- **🛡️ Input Validation**: Comprehensive form validation with Zod schemas
-- **⚡ Performance Optimized**: Server-side rendering and API route optimization
+- **🔐 Enterprise Security**: NextAuth.js integration with email verification and role-based access
+- **📧 Professional Communication**: Automated email system with customizable templates
+- **🤖 AI-Powered Feedback**: OpenAI GPT integration for intelligent feedback suggestions and sentiment analysis
+- **📊 Advanced Analytics**: Real-time dashboards with feedback trends and organizational insights
+- **🎨 Professional UI/UX**: Clean, modern interface designed for business environments
+- **📱 Multi-Device Support**: Responsive design optimized for desktop, tablet, and mobile
+- **🛡️ Data Protection**: Comprehensive input validation and secure data handling
+- **⚡ Enterprise Performance**: Optimized for high-volume feedback collection and processing
+- **🔄 Robust Infrastructure**: Enhanced database connections with retry logic and health monitoring
 
-## 🛠️ Tech Stack
+## 💼 Business Use Cases
 
-### Frontend
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first CSS framework
-- **Lucide React** - Beautiful icons
-- **React Hook Form** - Form handling with validation
-- **Framer Motion** - Smooth animations
+### **Human Resources**
+- Employee satisfaction surveys
+- Performance feedback collection
+- Exit interview insights
+- Team dynamics assessment
 
-### Backend
-- **Next.js API Routes** - Serverless API endpoints
-- **MongoDB** - NoSQL database with Mongoose ODM
-- **NextAuth.js** - Authentication and session management
-- **Nodemailer** - Email sending functionality
-- **bcryptjs** - Password hashing and security
+### **Leadership Development**
+- 360-degree leadership feedback
+- Management effectiveness evaluation
+- Executive coaching insights
+- Organizational culture assessment
 
-### AI & APIs
-- **OpenAI GPT-3.5** - AI-powered message suggestions
-- **Custom API Endpoints** - RESTful API design
+### **Process Improvement**
+- Workflow optimization feedback
+- System usability insights
+- Training program evaluation
+- Policy effectiveness review
 
-### Development Tools
-- **ESLint** - Code linting and quality
-- **Git** - Version control with proper .gitignore setup
+### **Customer Experience**
+- Service quality feedback
+- Product improvement suggestions
+- Customer satisfaction insights
+- User experience evaluation
 
-## 🎨 Design Highlights
+## 🛠️ Enterprise Tech Stack
 
-- **Glassmorphism UI**: Modern glass-like components with backdrop blur
-- **Dark Theme**: Professional dark color scheme with purple/blue accents
-- **Responsive Layout**: Seamless experience across all devices
-- **Loading States**: Smooth skeleton loaders and animated states
-- **Error Handling**: User-friendly error messages and fallbacks
+### Frontend Architecture
+- **Next.js 14** - React framework with App Router for optimal performance
+- **TypeScript** - Type-safe development ensuring code reliability
+- **Tailwind CSS** - Utility-first CSS framework for consistent design
+- **Lucide React** - Professional icon library
+- **React Hook Form** - Advanced form handling with validation
+- **shadcn/ui** - Professional component library
 
-## 🔧 Installation & Setup
+### Backend Infrastructure
+- **Next.js API Routes** - Serverless API endpoints with automatic scaling
+- **MongoDB** - NoSQL database with Mongoose ODM for flexible data modeling
+- **NextAuth.js** - Enterprise authentication with session management
+- **Nodemailer** - Professional email delivery system
+- **bcryptjs** - Industry-standard password hashing and security
 
-### Prerequisites
-- Node.js 18+ 
-- MongoDB database
-- Gmail account (for email functionality)
-- OpenAI API key
+### AI & Intelligence
+- **OpenAI GPT-3.5** - AI-powered feedback suggestions and sentiment analysis
+- **Custom Analytics Engine** - Real-time feedback processing and insights
+- **RESTful API Design** - Scalable and maintainable API architecture
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/yourusername/ghost-note.git
-cd ghost-note
-```
-
-### 2. Install Dependencies
-```bash
-npm install
-```
-
-### 3. Environment Configuration
-Copy the example environment file and configure your credentials:
-```bash
-cp .env.example .env
-```
-
-Fill in your environment variables:
-```env
-# Database
-MONGODB_URI="your-mongodb-connection-string"
-
-# NextAuth
-NEXTAUTH_SECRET="your-nextauth-secret-key"
-NEXTAUTH_URL="http://localhost:3000"
-
-# Email Configuration
-SMTP_HOST="smtp.gmail.com"
-SMTP_PORT="587"
-SMTP_USER="your-gmail@gmail.com"
-SMTP_PASS="your-gmail-app-password"
-EMAIL_FROM="your-gmail@gmail.com"
-EMAIL_FROM_NAME="GhostNote"
-
-# OpenAI API
-OPENAI_API_KEY="your-openai-api-key"
-```
-
-### 4. Run the Development Server
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view the application.
-
-## 📱 Features Showcase
-
-### 🏠 Landing Page
-- Hero section with animated background
-- Real-time user and message statistics
-- Call-to-action buttons for sign-up and sign-in
-- Feature highlights with modern cards
-
-### 🔐 Authentication System
-- **Sign Up**: Username validation, password requirements, email verification
-- **Sign In**: Secure login with session management
-- **Email Verification**: OTP-based verification with resend functionality
-
-### 📧 Anonymous Messaging
-- **Send Messages**: Clean interface for composing anonymous messages
-- **AI Suggestions**: GPT-powered message suggestions with categories
-- **Message Categories**: General, Creative, Motivational, Friendly, Deep
-- **Real-time Validation**: Character limits and input validation
-
-### 📊 User Dashboard
-- **Message Management**: View received messages
-- **Privacy Controls**: Toggle message acceptance
-- **Profile Settings**: Manage account preferences
-
-## 🤖 AI Integration Details
-
-The platform integrates OpenAI's GPT-3.5-turbo model to provide intelligent message suggestions:
-
-- **Category-based Prompts**: Different AI prompts for various message types
-- **Fallback System**: Graceful degradation when AI is unavailable
-- **Error Handling**: Robust error management with user-friendly messages
-- **Performance**: Optimized API calls with proper rate limiting
-
-## 🔒 Security Features
-
-- **Password Hashing**: bcryptjs for secure password storage
-- **Email Verification**: OTP-based account verification
-- **Session Management**: Secure session handling with NextAuth.js
-- **Input Validation**: Comprehensive validation with Zod schemas
-- **Environment Security**: Proper .gitignore configuration for sensitive data
-
-## 📈 Performance Optimizations
-
-- **Server-Side Rendering**: Optimized page loading
-- **API Route Optimization**: Efficient database queries
-- **Image Optimization**: Next.js built-in image optimization
-- **Code Splitting**: Automatic code splitting for better performance
-- **Caching**: Strategic caching for improved response times
-
-## 🚀 Deployment
-
-The application is designed for easy deployment on platforms like:
-- **Vercel** (Recommended for Next.js)
-- **Netlify**
-- **AWS**
-- **Digital Ocean**
-
-## 🧪 Testing & Quality Assurance
-
-- Comprehensive error handling throughout the application
-- Form validation and user input sanitization
-- Email delivery testing with fallback mechanisms
-- Cross-browser compatibility testing
-- Mobile responsiveness verification
+### DevOps & Quality
+- **ESLint** - Code quality and consistency enforcement
+- **TypeScript** - Compile-time error detection and type safety
+- **Git** - Version control with professional workflow practices
+- **Health Monitoring** - Database connection monitoring and error handling

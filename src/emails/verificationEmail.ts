@@ -5,7 +5,7 @@ export function VerificationEmail({ username, otp }: { username: string; otp: st
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Verify Your GhostNote Account</title>
+            <title>Verify Your FeedForward Account</title>
             <style>
                 body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f4f4f4; }
                 .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
@@ -21,11 +21,11 @@ export function VerificationEmail({ username, otp }: { username: string; otp: st
             <div class="container">
                 <div class="header">
                     <div class="logo">📧</div>
-                    <h1 style="color: #1f2937; margin: 0;">Welcome to GhostNote!</h1>
+                    <h1 style="color: #1f2937; margin: 0;">Welcome to FeedForward!</h1>
                     <p style="color: #6b7280; margin: 10px 0;">Hi ${username}, you're almost there!</p>
                 </div>
                 
-                <p>Thank you for signing up for GhostNote. To complete your registration and verify your email address, please use the verification code below:</p>
+                <p>Thank you for signing up for FeedForward, your enterprise-grade anonymous feedback management system. To complete your registration and verify your email address, please use the verification code below:</p>
                 
                 <div class="code-box">
                     <div class="code">${otp}</div>
@@ -36,11 +36,11 @@ export function VerificationEmail({ username, otp }: { username: string; otp: st
                     <strong>⏰ Important:</strong> This verification code expires in 1 hour and can only be used once. Please do not share this code with anyone.
                 </div>
                 
-                <p>If you didn't create an account with GhostNote, you can safely ignore this email.</p>
+                <p>If you didn't create an account with FeedForward, you can safely ignore this email.</p>
                 
                 <div class="footer">
-                    <p>Thanks for joining GhostNote!</p>
-                    <p style="margin: 5px 0;">Questions? Contact us at support@ghostnote.com</p>
+                    <p>Thanks for joining FeedForward!</p>
+                    <p style="margin: 5px 0;">Questions? Contact us at support@feedforward.com</p>
                 </div>
             </div>
         </body>

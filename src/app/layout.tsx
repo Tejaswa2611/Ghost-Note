@@ -8,12 +8,12 @@ const inter = Inter({ subsets: ["latin"] });
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: "GhostNote - Anonymous Messaging Platform",
-  description: "Send and receive anonymous messages safely and securely. Create unique links to receive anonymous messages with complete privacy.",
-  keywords: ["anonymous messaging", "secure messaging", "private messages", "anonymous feedback"],
-  authors: [{ name: "GhostNote Team" }],
-  creator: "GhostNote",
-  publisher: "GhostNote",
+  title: "FeedForward - Anonymous Feedback Management System",
+  description: "Enterprise-grade anonymous feedback platform for organizations. Collect honest feedback from employees, customers, and stakeholders with complete anonymity and AI-powered insights.",
+  keywords: ["anonymous feedback", "employee feedback", "organizational feedback", "HR tools", "360 feedback", "performance management", "enterprise feedback"],
+  authors: [{ name: "FeedForward Development Team" }],
+  creator: "FeedForward",
+  publisher: "FeedForward",
   formatDetection: {
     email: false,
     address: false,

@@ -12,6 +12,9 @@
 
 import connectDB from "@/lib/connectDB";
 import { getServerSession } from "next-auth";
+
+// Mark this route as dynamic to prevent static generation issues
+export const dynamic = 'force-dynamic';
 import { authOptions } from "../auth/[...nextauth]/options";
 import UserModel from "@/models/User";
 

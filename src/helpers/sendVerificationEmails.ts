@@ -65,9 +65,9 @@ export async function sendVerificationEmail(
         
         // Email options
         const mailOptions = {
-            from: `"${process.env.EMAIL_FROM_NAME || 'GhostNote'}" <${process.env.EMAIL_FROM}>`,
+            from: `"${process.env.EMAIL_FROM_NAME || 'FeedForward'}" <${process.env.EMAIL_FROM}>`,
             to: email,
-            subject: '🔐 Verify your GhostNote account',
+            subject: '🔐 Verify your FeedForward account',
             html: verificationEmailHtml,
         };
         

@@ -7,7 +7,7 @@ const openai = new OpenAI({
 
 export async function POST(request: Request) {
     try {
-        const { username, category = 'general' } = await request.json();
+        const { username, category = 'performance' } = await request.json();
         
         console.log("🤖 Generating message suggestions for username:", username, "Category:", category);
         
@@ -15,16 +15,16 @@ export async function POST(request: Request) {
         if (!process.env.OPENAI_API_KEY) {
             console.error(" OPENAI_API_KEY not set in environment variables");
             
-            // Return fallback suggestions
+            // Return professional fallback feedback suggestions
             const fallbackSuggestions = [
-                "What's something that made you smile today?",
-                "If you could travel anywhere right now, where would you go?",
-                "What's a hobby you've recently started or want to try?",
-                "What's the best advice you've ever received?",
-                "If you could have dinner with any historical figure, who would it be?",
-                "What's a song that always puts you in a good mood?",
-                "What's something you're proud of accomplishing recently?",
-                "If you could learn any skill instantly, what would it be?"
+                "Your attention to detail in recent projects has been impressive. How do you maintain such high standards?",
+                "I've noticed your collaborative approach in team meetings. What strategies help you facilitate effective discussions?",
+                "Your problem-solving skills during challenging situations stand out. What's your approach to tackling complex issues?",
+                "The way you mentor junior team members is commendable. What advice would you give to others about knowledge sharing?",
+                "Your ability to meet deadlines consistently is valuable to the team. How do you manage your time effectively?",
+                "I appreciate how you communicate complex ideas clearly. What techniques help you explain technical concepts?",
+                "Your positive attitude during stressful periods is motivating. How do you maintain resilience under pressure?",
+                "The innovative solutions you propose often improve our processes. What inspires your creative thinking?"
             ];
             
             return Response.json({
@@ -34,52 +34,56 @@ export async function POST(request: Request) {
             }, { status: 200 });
         }
         
-        // Create dynamic prompts based on category
+        // Create dynamic prompts based on feedback category
         const prompts = {
-            general: `Generate 6 friendly, engaging, and thought-provoking anonymous message suggestions that someone could send to ${username}. 
-            The messages should be:
-            - Positive and uplifting
-            - Safe for work and appropriate
-            - Conversation starters
-            - Personal but not intrusive
-            - Encouraging self-reflection or sharing experiences
+            performance: `Generate 6 professional, constructive anonymous feedback suggestions for ${username} focusing on performance and productivity. 
+            The feedback should be:
+            - Constructive and actionable
+            - Professional and respectful
+            - Focused on specific behaviors or outcomes
+            - Encouraging improvement and growth
+            - Suitable for workplace environments
             
-            Return only the message suggestions, one per line, without numbers or bullet points.`,
+            Return only the feedback suggestions, one per line, without numbers or bullet points.`,
             
-            creative: `Generate 6 creative and artistic anonymous message suggestions for ${username}. Focus on:
-            - Creative projects and inspiration
-            - Art, music, writing, or other creative pursuits
-            - Imagination and innovation
-            - Creative challenges or prompts
+            leadership: `Generate 6 professional anonymous feedback suggestions for ${username} regarding leadership and management effectiveness. Focus on:
+            - Leadership style and approach
+            - Communication and decision-making
+            - Team management and motivation
+            - Vision and strategic thinking
+            - Professional development opportunities
             
-            Return only the message suggestions, one per line, without numbers or bullet points.`,
+            Return only the feedback suggestions, one per line, without numbers or bullet points.`,
             
-            motivational: `Generate 6 motivational and inspiring anonymous message suggestions for ${username}. Focus on:
-            - Personal growth and development
-            - Overcoming challenges
-            - Achieving goals and dreams
-            - Building confidence and self-belief
+            collaboration: `Generate 6 constructive anonymous feedback suggestions for ${username} about teamwork and collaboration. Focus on:
+            - Team dynamics and cooperation
+            - Communication within teams
+            - Conflict resolution and problem-solving
+            - Knowledge sharing and mentoring
+            - Cross-functional collaboration
             
-            Return only the message suggestions, one per line, without numbers or bullet points.`,
+            Return only the feedback suggestions, one per line, without numbers or bullet points.`,
             
-            friendly: `Generate 6 casual and friendly anonymous message suggestions for ${username}. Focus on:
-            - Everyday life and experiences
-            - Hobbies and interests
-            - Fun and lighthearted topics
-            - Building connections and friendships
+            development: `Generate 6 professional anonymous feedback suggestions for ${username} focused on professional development and growth. Focus on:
+            - Skill development opportunities
+            - Career advancement suggestions
+            - Learning and training recommendations
+            - Professional strengths and areas for improvement
+            - Goal setting and achievement
             
-            Return only the message suggestions, one per line, without numbers or bullet points.`,
+            Return only the feedback suggestions, one per line, without numbers or bullet points.`,
             
-            thoughtful: `Generate 6 deep and thoughtful anonymous message suggestions for ${username}. Focus on:
-            - Philosophy and life perspectives
-            - Personal values and beliefs
-            - Meaningful experiences and memories
-            - Self-reflection and introspection
+            culture: `Generate 6 thoughtful anonymous feedback suggestions for ${username} about organizational culture and workplace environment. Focus on:
+            - Company culture and values alignment
+            - Work environment and atmosphere
+            - Inclusion and diversity perspectives
+            - Process improvements and efficiency
+            - Employee satisfaction and engagement
             
-            Return only the message suggestions, one per line, without numbers or bullet points.`
+            Return only the feedback suggestions, one per line, without numbers or bullet points.`
         };
         
-        const selectedPrompt = prompts[category as keyof typeof prompts] || prompts.general;
+        const selectedPrompt = prompts[category as keyof typeof prompts] || prompts.performance;
         
         console.log("🎯 Using prompt category:", category);
         
@@ -113,13 +117,13 @@ export async function POST(request: Request) {
         
         console.log("✅ Generated", suggestions.length, "suggestions via OpenAI");
         
-        // If we don't have enough suggestions, add fallbacks
+        // If we don't have enough suggestions, add professional fallbacks
         if (suggestions.length < 4) {
             const fallbacks = [
-                "What's something you're grateful for today?",
-                "Share a random fact about yourself that would surprise people!",
-                "What's your favorite way to unwind after a long day?",
-                "If you could give your past self one piece of advice, what would it be?"
+                "Your expertise in [specific area] has been valuable to our team. What drives your passion for this field?",
+                "I've noticed your ability to remain calm under pressure. What strategies help you manage stress effectively?",
+                "Your contributions to recent projects have made a significant impact. What aspects of the work do you find most rewarding?",
+                "The way you approach challenges with creativity is inspiring. What influences your innovative thinking?"
             ];
             
             suggestions.push(...fallbacks.slice(0, 6 - suggestions.length));
@@ -135,14 +139,14 @@ export async function POST(request: Request) {
     } catch (error) {
         console.error("❌ Error generating message suggestions:", error);
         
-        // Return fallback suggestions on error
+        // Return professional fallback feedback suggestions on error
         const fallbackSuggestions = [
-            "What's something that made you smile today?",
-            "If you could travel anywhere right now, where would you go?",
-            "What's a hobby you've recently started or want to try?",
-            "What's the best advice you've ever received?",
-            "If you could learn any skill instantly, what would it be?",
-            "What's something you're proud of accomplishing recently?"
+            "Your collaborative approach in team projects has been effective. What strategies work best for you?",
+            "I've observed your strong problem-solving abilities. How do you approach complex challenges?",
+            "Your communication skills help clarify difficult concepts. What techniques do you find most effective?",
+            "The way you handle deadlines and priorities is impressive. What's your time management approach?",
+            "Your positive attitude contributes to team morale. How do you maintain motivation during busy periods?",
+            "I appreciate your willingness to help colleagues. What motivates you to support team members?"
         ];
         
         return Response.json({
