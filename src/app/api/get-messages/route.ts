@@ -27,41 +27,57 @@ export async function GET(request: Request) {
             return createErrorResponse("User session invalid", 400);
         }
         
-        console.log("✅ User authenticated:", user.username || user.email);
+
         
         // Use robust database connection wrapper
         const result = await withDatabaseConnection(async () => {
-            const userId = new mongoose.Types.ObjectId(user._id);
-            console.log("🔍 Searching for user with ID:", userId);
+            // First, try to find the user by different methods
+            let foundUser = null;
+            let searchMethod = '';
             
-            const userWithMessages = await UserModel.aggregate([
-                { $match: { _id: userId } },
-                { $unwind: { path: "$messages", preserveNullAndEmptyArrays: true } },
-                { $sort: { "messages.createdOn": -1 } },
-                { $group: { 
-                    _id: "$_id", 
-                    messages: { $push: "$messages" },
-                    username: { $first: "$username" },
-                    email: { $first: "$email" },
-                    isAcceptingMessages: { $first: "$isAcceptingMessages" }
-                }}
-            ]);
-
-            console.log("📊 Aggregation result length:", userWithMessages.length);
-
-            if (!userWithMessages || userWithMessages.length === 0) {
-                throw new Error("USER_NOT_FOUND");
+            // Try finding by username (most reliable)
+            if (user.username) {
+                foundUser = await UserModel.findOne({ username: user.username });
+                searchMethod = 'username';
+            }
+            
+            // Try finding by email if username fails
+            if (!foundUser && user.email) {
+                foundUser = await UserModel.findOne({ email: user.email });
+                searchMethod = 'email';
+            }
+            
+            // Try finding by ObjectId if it's valid
+            if (!foundUser && user._id && mongoose.Types.ObjectId.isValid(user._id)) {
+                try {
+                    const userId = new mongoose.Types.ObjectId(user._id);
+                    foundUser = await UserModel.findById(userId);
+                    searchMethod = 'ObjectId';
+                } catch (error) {
+                    // Silent fallback
+                }
             }
 
-            // Filter out null messages (from preserveNullAndEmptyArrays)
-            const messages = userWithMessages[0].messages.filter((msg: any) => msg !== null);
+            if (!foundUser) {
+                throw new Error("USER_NOT_FOUND");
+            }
             
-            console.log(`✅ Found ${messages.length} messages for user`);
+            // Ensure messages array exists
+            const messages = foundUser.messages || [];
+            
+            // Sort messages by creation date (newest first)
+            if (messages.length > 0) {
+                messages.sort((a: any, b: any) => {
+                    const dateA = new Date(a.createdOn).getTime();
+                    const dateB = new Date(b.createdOn).getTime();
+                    return dateB - dateA;
+                });
+            }
 
             return {
                 messages,
-                username: userWithMessages[0].username,
-                isAcceptingMessages: userWithMessages[0].isAcceptingMessages,
+                username: foundUser.username,
+                isAcceptingMessages: foundUser.isAcceptingMessages,
                 totalCount: messages.length
             };
             
