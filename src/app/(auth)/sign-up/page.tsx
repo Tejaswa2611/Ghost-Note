@@ -66,6 +66,11 @@ const SignUpPage = () => {
     // Optimized submit handler with useCallback
     const onSubmit = useCallback(async (data: z.infer<typeof signUpSchema>) => {
         setIsSubmitting(true)
+        
+        // Add minimum loading time for better UX
+        const startTime = Date.now()
+        const minLoadingTime = 800 // 800ms minimum loading time
+        
         try {
             console.log("data->", data);
             const response = await axios.post<APIResponse>('/api/sign-up', data)
@@ -73,7 +78,12 @@ const SignUpPage = () => {
                 title: "Success",
                 description: response.data.message,
             })
-            router.replace(`/verify/${username}`)
+            
+            // Wait a moment before redirecting
+            setTimeout(() => {
+                router.replace(`/verify/${username}`)
+            }, 1000)
+            return // Don't reset loading state immediately for successful sign-up
         } catch (error) {
             console.error("Error signing up->", error);
             const axiosError = error as AxiosError<APIResponse>;
@@ -83,7 +93,13 @@ const SignUpPage = () => {
                 description: errorMessage
             })
         } finally {
-            setIsSubmitting(false)
+            // Ensure minimum loading time for better UX
+            const elapsedTime = Date.now() - startTime
+            const remainingTime = Math.max(0, minLoadingTime - elapsedTime)
+            
+            setTimeout(() => {
+                setIsSubmitting(false)
+            }, remainingTime)
         }
     }, [toast, router, username])
     // Optimized password toggle with useCallback
@@ -111,12 +127,12 @@ const SignUpPage = () => {
     }, [isClient])
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+        <div className="min-h-screen bg-gradient-hero relative overflow-hidden">
             {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-20 left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-20 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl animate-bounce" style={{ animationDelay: '1s', animationDuration: '3s' }}></div>
-                <div className="absolute top-1/2 left-1/4 w-28 h-28 bg-purple-500/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                <div className="absolute top-20 left-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-20 right-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl animate-bounce" style={{ animationDelay: '1s', animationDuration: '3s' }}></div>
+                <div className="absolute top-1/2 left-1/4 w-28 h-28 bg-primary/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
                 {/* Floating particles - memoized for performance */}
                 {floatingParticles}
@@ -126,19 +142,19 @@ const SignUpPage = () => {
             <div className="relative z-10 flex justify-center items-center min-h-screen px-4 sm:px-6 py-8 sm:py-12">
                 <div className="w-full max-w-sm sm:max-w-md mt-12 sm:mt-16">
                     {/* Main Card */}
-                    <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-700/50 hover:border-purple-500/30 transition-all duration-500">
+                    <div className="bg-card/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-border hover:border-primary/30 transition-all duration-500">
                         {/* Logo Section */}
                         <div className="text-center mb-6 sm:mb-8">
                             <div className="flex items-center justify-center mb-4 sm:mb-6">
-                                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-xl animate-pulse">
-                                    <MessagesSquare className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-xl animate-pulse">
+                                    <MessagesSquare className="h-6 w-6 sm:h-8 sm:w-8 text-primary-foreground" />
                                 </div>
                             </div>
-                            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-2 sm:mb-3">
-                                Join GhostNote
+                            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2 sm:mb-3">
+                                Join FeedForward
                             </h1>
-                            <p className="text-gray-400 text-sm sm:text-base">
-                                Sign up to start your anonymous adventure
+                            <p className="text-muted-foreground text-sm sm:text-base">
+                                Create your account to start collecting anonymous feedback
                             </p>
                         </div>
 
@@ -151,12 +167,12 @@ const SignUpPage = () => {
                                     name="username"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel className="text-white font-medium">Username</FormLabel>
+                                            <FormLabel className="text-card-foreground font-medium">Username</FormLabel>
                                             <FormControl>
                                                 <div className="relative">
                                                     <Input 
                                                         placeholder="Enter your username"
-                                                        className="bg-slate-700/50 border-slate-600/50 text-white placeholder:text-gray-500 focus:border-purple-500/50 focus:ring-purple-500/20 pr-10"
+                                                        className="bg-input border-border text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:ring-primary/20 pr-10"
                                                         {...field}
                                                         onChange={(e) => {
                                                             field.onChange(e)
@@ -165,20 +181,20 @@ const SignUpPage = () => {
                                                     />
                                                     <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                                                         {isCheckingUsername && (
-                                                            <Loader2 className="h-4 w-4 animate-spin text-purple-400" />
+                                                            <Loader2 className="h-4 w-4 animate-spin text-primary" />
                                                         )}
                                                         {!isCheckingUsername && usernameMessage === 'Username available' && (
-                                                            <CheckCircle className="h-4 w-4 text-green-400" />
+                                                            <CheckCircle className="h-4 w-4 text-green-500" />
                                                         )}
                                                         {!isCheckingUsername && usernameMessage && usernameMessage !== 'Username available' && (
-                                                            <XCircle className="h-4 w-4 text-red-400" />
+                                                            <XCircle className="h-4 w-4 text-destructive" />
                                                         )}
                                                     </div>
                                                 </div>
                                             </FormControl>
                                             {/* Show username availability message only if there's no form validation error */}
                                             {usernameMessage && !form.formState.errors.username && (
-                                                <p className={`text-sm flex items-center gap-2 ${usernameMessage === 'Username available' ? 'text-green-400' : 'text-red-400'}`}>
+                                                <p className={`text-sm flex items-center gap-2 ${usernameMessage === 'Username available' ? 'text-green-500' : 'text-destructive'}`}>
                                                     {usernameMessage === 'Username available' ? (
                                                         <CheckCircle className="h-3 w-3" />
                                                     ) : (
@@ -187,7 +203,7 @@ const SignUpPage = () => {
                                                     {usernameMessage}
                                                 </p>
                                             )}
-                                            <FormMessage className="text-red-400" />
+                                            <FormMessage className="text-destructive" />
                                         </FormItem>
                                     )}
                                 />
@@ -198,15 +214,15 @@ const SignUpPage = () => {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel className="text-white font-medium">Email</FormLabel>
+                                            <FormLabel className="text-card-foreground font-medium">Email</FormLabel>
                                             <FormControl>
                                                 <Input 
                                                     placeholder="Enter your email"
-                                                    className="bg-slate-700/50 border-slate-600/50 text-white placeholder:text-gray-500 focus:border-purple-500/50 focus:ring-purple-500/20"
+                                                    className="bg-input border-border text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:ring-primary/20"
                                                     {...field}
                                                 />
                                             </FormControl>
-                                            <FormMessage className="text-red-400" />
+                                            <FormMessage className="text-destructive" />
                                         </FormItem>
                                     )}
                                 />
@@ -217,19 +233,19 @@ const SignUpPage = () => {
                                     name="password"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel className="text-white font-medium">Password</FormLabel>
+                                            <FormLabel className="text-card-foreground font-medium">Password</FormLabel>
                                             <FormControl>
                                                 <div className="relative">
                                                     <Input 
                                                         type={showPassword ? "text" : "password"}
                                                         placeholder="Enter your password"
-                                                        className="bg-slate-700/50 border-slate-600/50 text-white placeholder:text-gray-500 focus:border-purple-500/50 focus:ring-purple-500/20 pr-10"
+                                                        className="bg-input border-border text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:ring-primary/20 pr-10"
                                                         {...field}
                                                     />
                                                     <button
                                                         type="button"
                                                         onClick={togglePasswordVisibility}
-                                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                                                     >
                                                         {showPassword ? (
                                                             <EyeOff className="h-4 w-4" />
@@ -239,7 +255,7 @@ const SignUpPage = () => {
                                                     </button>
                                                 </div>
                                             </FormControl>
-                                            <FormMessage className="text-red-400" />
+                                            <FormMessage className="text-destructive" />
                                         </FormItem>
                                     )}
                                 />
@@ -248,7 +264,7 @@ const SignUpPage = () => {
                                 <Button 
                                     type="submit" 
                                     disabled={isSubmitting}
-                                    className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0 py-2.5 sm:py-3 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                    className="w-full bg-gradient-primary hover:opacity-90 text-primary-foreground border-0 py-2.5 sm:py-3 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                                 >
                                     {isSubmitting ? (
                                         <>
@@ -264,11 +280,11 @@ const SignUpPage = () => {
 
                         {/* Sign In Link */}
                         <div className="mt-6 sm:mt-8 text-center">
-                            <p className="text-gray-400 text-sm">
+                            <p className="text-muted-foreground text-sm">
                                 Already have an account?{' '}
                                 <Link 
                                     href="/sign-in" 
-                                    className="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200"
+                                    className="text-primary hover:text-primary/80 font-medium transition-colors duration-200"
                                 >
                                     Sign In
                                 </Link>
@@ -280,7 +296,7 @@ const SignUpPage = () => {
                     <div className="text-center mt-4 sm:mt-6">
                         <Link 
                             href="/" 
-                            className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
+                            className="text-muted-foreground hover:text-foreground text-sm transition-colors duration-200"
                         >
                             ← Back to Home
                         </Link>

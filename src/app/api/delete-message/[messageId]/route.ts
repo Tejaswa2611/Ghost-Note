@@ -4,6 +4,9 @@ import { authOptions } from '../../auth/[...nextauth]/options'
 import connectDB from '@/lib/connectDB'
 import UserModel from '@/models/User'
 
+// Mark this route as dynamic to prevent static generation issues
+export const dynamic = 'force-dynamic';
+
 export async function DELETE(
     request: NextRequest,
     { params }: { params: { messageId: string } }

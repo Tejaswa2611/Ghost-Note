@@ -2,7 +2,7 @@
 // Only keep this file if you want unique dashboard layout, like sidebar, etc.
 
 export const metadata = {
-  title: 'Dashboard - GhostNote',
+  title: 'Dashboard - FeedForward',
   description: 'Manage your anonymous messages and account settings.',
 }
 
