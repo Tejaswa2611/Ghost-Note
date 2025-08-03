@@ -6,6 +6,7 @@
 
 import connectDB from "@/lib/connectDB";
 import User, { Message } from "@/models/User";
+import { sendNotificationEmail } from "@/helpers/sendNotificationEmail";
 
 export async function POST(request: Request) {
     try {
@@ -31,6 +32,21 @@ export async function POST(request: Request) {
         }
         user.messages.push(message as Message);
         await user.save();
+
+        // Send email notification (non-blocking)
+        try {
+            const messagePreview = content.length > 100 ? content.substring(0, 100) : content;
+            await sendNotificationEmail({
+                email: user.email,
+                username: user.username,
+                messagePreview,
+                messageCount: user.messages.filter(msg => !msg.read).length || 1
+            });
+        } catch (emailError) {
+            console.error("Failed to send notification email:", emailError);
+            // Don't fail the main request if email fails
+        }
+
         return Response.json({
             success: true,
             message: "Message sent successfully"
